@@ -26,7 +26,7 @@ public:
     DecoderMgr() { reader_ = new zxing::qrcode::QRCodeReader(); };
     ~DecoderMgr(){};
 
-    int decodeImage(cv::Mat src, bool use_nn_detector, string& result);
+    int decodeImage(const uint8_t * src,int width,int height, bool use_nn_detector, string& result);
 
 private:
     zxing::Ref<zxing::UnicomBlock> qbarUicomBlock_;

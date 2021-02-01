@@ -1,0 +1,10 @@
+build
+tmp
+
+*.zip
+*.so
+*.a
+*.bak
+*.rar
+*.tar
+*.gz

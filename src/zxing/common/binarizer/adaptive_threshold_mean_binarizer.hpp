@@ -7,8 +7,8 @@
 
 #ifndef __ZXING_COMMON_ADAPTIVE_THRESHOLD_MEAN_BINARIZER_HPP__
 #define __ZXING_COMMON_ADAPTIVE_THRESHOLD_MEAN_BINARIZER_HPP__
-#include <opencv2/core.hpp>
-#include <opencv2/imgproc.hpp>
+// #include <opencv2/core.hpp>
+// #include <opencv2/imgproc.hpp>
 #include <vector>
 #include "../../binarizer.hpp"
 #include "../../errorhandler.hpp"
@@ -31,8 +31,8 @@ public:
 
 private:
     int binarizeImage(ErrorHandler& err_handler);
-    int TransBufferToMat(unsigned char* pBuffer, cv::Mat& mDst, int nWidth, int nHeight);
-    int TransMatToBuffer(cv::Mat mSrc, unsigned char* ppBuffer, int& nWidth, int& nHeight);
+    // int TransBufferToMat(unsigned char* pBuffer, cv::Mat& mDst, int nWidth, int nHeight);
+    // int TransMatToBuffer(cv::Mat mSrc, unsigned char* ppBuffer, int& nWidth, int& nHeight);
 };
 
 }  // namespace zxing

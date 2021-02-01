@@ -51,16 +51,16 @@ int AdaptiveThresholdMeanBinarizer::binarizeImage(ErrorHandler& err_handler) {
         if (err_handler.ErrCode()) return -1;
         auto src = (unsigned char*)source.getMatrix()->data();
         auto dst = matrix->getPtr();
-        cv::Mat mDst;
-        mDst = cv::Mat::zeros(cv::Size(width, height), CV_8UC1);
-        TransBufferToMat(src, mDst, width, height);
-        cv::Mat result;
-        int bs = width / 10;
-        bs = bs + bs % 2 - 1;
-        if (!(bs % 2 == 1 && bs > 1)) return -1;
-        cv::adaptiveThreshold(mDst, result, 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY,
-                              bs, Bias);
-        TransMatToBuffer(result, dst, width, height);
+        // cv::Mat mDst;
+        // mDst = cv::Mat::zeros(cv::Size(width, height), CV_8UC1);
+        // TransBufferToMat(src, mDst, width, height);
+        // cv::Mat result;
+        // int bs = width / 10;
+        // bs = bs + bs % 2 - 1;
+        // if (!(bs % 2 == 1 && bs > 1)) return -1;
+        // cv::adaptiveThreshold(mDst, result, 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY,
+        //                       bs, Bias);
+        // TransMatToBuffer(result, dst, width, height);
         if (err_handler.ErrCode()) return -1;
         matrix0_ = matrix;
     } else {
@@ -70,31 +70,31 @@ int AdaptiveThresholdMeanBinarizer::binarizeImage(ErrorHandler& err_handler) {
     return 0;
 }
 
-int AdaptiveThresholdMeanBinarizer::TransBufferToMat(unsigned char* pBuffer, cv::Mat& mDst,
-                                                     int nWidth, int nHeight) {
-    for (int j = 0; j < nHeight; ++j) {
-        unsigned char* data = mDst.ptr<unsigned char>(j);
-        unsigned char* pSubBuffer = pBuffer + (nHeight - 1 - j) * nWidth;
-        memcpy(data, pSubBuffer, nWidth);
-    }
-    return 0;
-}
+// int AdaptiveThresholdMeanBinarizer::TransBufferToMat(unsigned char* pBuffer, cv::Mat& mDst,
+//                                                      int nWidth, int nHeight) {
+//     for (int j = 0; j < nHeight; ++j) {
+//         unsigned char* data = mDst.ptr<unsigned char>(j);
+//         unsigned char* pSubBuffer = pBuffer + (nHeight - 1 - j) * nWidth;
+//         memcpy(data, pSubBuffer, nWidth);
+//     }
+//     return 0;
+// }
 
-int AdaptiveThresholdMeanBinarizer::TransMatToBuffer(cv::Mat mSrc, unsigned char* ppBuffer,
-                                                     int& nWidth, int& nHeight) {
-    nWidth = mSrc.cols;
-    // nWidth = ((nWidth + 3) / 4) * 4;
-    nHeight = mSrc.rows;
-    for (int j = 0; j < nHeight; ++j) {
-        unsigned char* pdi = ppBuffer + j * nWidth;
-        for (int z = 0; z < nWidth; ++z) {
-            int nj = nHeight - j - 1;
-            int value = *(uchar*)(mSrc.ptr<uchar>(nj) + z);
-            if (value > 120)
-                pdi[z] = 0;
-            else
-                pdi[z] = 1;
-        }
-    }
-    return 0;
-}
+// int AdaptiveThresholdMeanBinarizer::TransMatToBuffer(cv::Mat mSrc, unsigned char* ppBuffer,
+//                                                      int& nWidth, int& nHeight) {
+//     nWidth = mSrc.cols;
+//     // nWidth = ((nWidth + 3) / 4) * 4;
+//     nHeight = mSrc.rows;
+//     for (int j = 0; j < nHeight; ++j) {
+//         unsigned char* pdi = ppBuffer + j * nWidth;
+//         for (int z = 0; z < nWidth; ++z) {
+//             int nj = nHeight - j - 1;
+//             int value = *(uchar*)(mSrc.ptr<uchar>(nj) + z);
+//             if (value > 120)
+//                 pdi[z] = 0;
+//             else
+//                 pdi[z] = 1;
+//         }
+//     }
+//     return 0;
+// }
